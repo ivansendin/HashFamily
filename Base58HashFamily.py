@@ -12,7 +12,7 @@ B58Code = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 class HashBase58():
     def __init__(self,NUM_HASH,HASH_SIZE):
         #6bits per digit
-        ES = math.ceil(math.log(HASH_SIZE,2)/6)
+        ES = int(math.ceil(math.log(HASH_SIZE,2)/6))
         self.look_up = [ [R.randint(1,W_SIZE-2) for _ in range(ES)] for _ in range(NUM_HASH)]
         self.HASH_SIZE = HASH_SIZE
 
