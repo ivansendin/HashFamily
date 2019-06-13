@@ -6,7 +6,7 @@ import math
 
 W_SIZE=32
 
-B58Code = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+B58Code = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyzl0'
 
     
 class HashBase58():
