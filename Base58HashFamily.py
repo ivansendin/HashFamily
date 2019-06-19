@@ -13,13 +13,21 @@ class HashBase58():
     def __init__(self,NUM_HASH,HASH_SIZE):
         #6bits per digit
         ES = int(math.ceil(math.log(HASH_SIZE,2)/6))
-        self.look_up = [ [R.randint(1,W_SIZE-2) for _ in range(ES)] for _ in range(NUM_HASH)]
+        self.look_up_base = [R.randint(1,W_SIZE-2) for _ in range(ES)]
+        self.look_up_single = [R.randint(1,W_SIZE-2) for _ in range(NUM_HASH-1)]
+        
         self.HASH_SIZE = HASH_SIZE
+        self.NUM_HASH = NUM_HASH
 
-    def hash(self,w):
-        for l in self.look_up:
-            h=0
-            for i in range(len(l)):
-                h|= B58Code.index(w[l[i]])<<(i*6)
-            yield h%self.HASH_SIZE
     
+    def hash(self,w):
+        h=0
+        for i in range(len(self.look_up_base)):
+            h|= B58Code.index(w[ self.look_up_base[i]])<<(i*6)
+            
+        h = h%self.HASH_SIZE
+        yield h%self.HASH_SIZE
+        for l in self.look_up_single:
+            h= (h<<6 | B58Code.index(w[l]))%self.HASH_SIZE
+            yield h
+            
